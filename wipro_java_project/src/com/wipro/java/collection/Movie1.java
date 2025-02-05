@@ -1,22 +1,16 @@
 package com.wipro.java.collection;
-import java.util.ArrayList;
-import java.util.Collections;
 
-class Movie implements Comparable<Movie> {
+public class Movie1
+{
     private String n;  // Movie Name
     private double r;  // Movie Rating
-    private int y;     // Release year
+    private int y;     // Release Year
 
     // Constructor
-    public Movie(String n, double r, int y) {
+    public Movie1(String n, double r, int y) {
         this.n = n;
         this.r = r;
         this.y = y;
-    }
-
-    // CompareTo method for sorting by rating in ascending order
-    public int compareTo(Movie m) {
-        return Double.compare(this.r, m.r); // Sorting by rating
     }
 
     // Getter methods
@@ -32,5 +26,3 @@ class Movie implements Comparable<Movie> {
         return y;
     }
 }
-
-  
