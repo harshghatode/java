@@ -1,28 +1,27 @@
 package com.wipro.java.collection;
 
-public class Movie1
-{
-    private String n;  // Movie Name
-    private double r;  // Movie Rating
-    private int y;     // Release Year
+public class Movie1 {
+    private String name;
+    private double rating;
+    private int year;
 
     // Constructor
-    public Movie1(String n, double r, int y) {
-        this.n = n;
-        this.r = r;
-        this.y = y;
+    public Movie1(String name, double rating, int year) {
+        this.name = name;
+        this.rating = rating;
+        this.year = year;
     }
 
-    // Getter methods
+    // Getters
     public String getName() {
-        return n;
+        return name;
     }
 
     public double getRating() {
-        return r;
+        return rating;
     }
 
     public int getYear() {
-        return y;
+        return year;
     }
 }

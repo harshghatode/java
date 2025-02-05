@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Rate implements Comparator<Movie1> {
-    // Sort by rating in descending order
-    @Override
+public class Year implements Comparator<Movie1> {
+    // Sort by year in ascending order
+    
     public int compare(Movie1 m1, Movie1 m2) {
-        return Double.compare(m2.getRating(), m1.getRating()); 
+        return Integer.compare(m1.getYear(), m2.getYear());
     }
 
     public static void main(String[] args) {
@@ -18,11 +18,11 @@ public class Rate implements Comparator<Movie1> {
         movies.add(new Movie1("Star Wars", 8.7, 1977));
         movies.add(new Movie1("Empire Strikes Back", 8.8, 1980));
 
-        // Sort movies by rating and display all
-        Collections.sort(movies, new Rate());
-        System.out.println("Movies sorted by rating (Descending):");
+        // Sort movies by year (ascending) and display all
+        Collections.sort(movies, new Year());
+        System.out.println("\nMovies sorted by year (Ascending):");
         for (Movie1 m : movies) {
-            System.out.println(m.getRating() + " " + m.getName() + " " + m.getYear());
+            System.out.println(m.getName() + " " + m.getRating() + " " + m.getYear());
         }
     }
 }
