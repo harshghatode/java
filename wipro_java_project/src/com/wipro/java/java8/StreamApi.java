@@ -12,7 +12,7 @@ public class StreamApi {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        List<String> list = Arrays.asList("Prasant", "Sagar", "Aarav");
+        List<String> list = Arrays.asList("Harsh", "Parth", "Atharv");
 
         // Filter names starting with "P"
         List<String> stream = list.stream()
