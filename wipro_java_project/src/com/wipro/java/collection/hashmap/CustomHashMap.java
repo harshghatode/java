@@ -1,36 +1,116 @@
 package com.wipro.java.collection.hashmap;
 
-import java.util.HashMap;
 
-public class CustomHashMap {
-    public static void main(String[] args) {
-        // Create a HashMap that maps String keys to Integer values
-        HashMap<String, Integer> map = new HashMap<>();
+import java.util.*;
+import java.util.LinkedList;
 
-        // Add key-value pairs to the HashMap
-        map.put("John", 25);
-        map.put("Alice", 30);
-        map.put("Bob", 22);
-        map.put("Maria", 28);
+class CustomHashMap<K, V> {
+    private static final int INITIAL_CAPACITY = 10; // Default size of HashMap
+    private LinkedList<Entry<K, V>>[] buckets; // Array of linked lists (separate chaining)
+    private int size; // Number of key-value pairs
 
-        // Access elements from the HashMap
-        System.out.println("John's age: " + map.get("John"));
-        System.out.println("Alice's age: " + map.get("Alice"));
+    // Entry class to store key-value pairs
+    static class Entry<K, V> {
+        K key;
+        V value;
 
-        // Check if a key exists in the HashMap
-        if (map.containsKey("Bob")) {
-            System.out.println("Bob is in the map.");
+        Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    // Constructor
+    public CustomHashMap() {
+        buckets = new LinkedList[INITIAL_CAPACITY];
+        for (int i = 0; i < INITIAL_CAPACITY; i++) {
+            buckets[i] = new LinkedList<>();
+        }
+        size = 0;
+    }
+
+    // Hash function to determine the bucket index
+    private int getBucketIndex(K key) {
+        return Math.abs(key.hashCode()) % INITIAL_CAPACITY;
+    }
+
+    // PUT method: Insert or update a key-value pair
+    public void put(K key, V value) {
+        int index = getBucketIndex(key);
+        LinkedList<Entry<K, V>> bucket = buckets[index];
+
+        for (Entry<K, V> entry : bucket) {
+            if (entry.key.equals(key)) {
+                entry.value = value; // Update value if key exists
+                return;
+            }
         }
 
-        // Remove a key-value pair from the HashMap
-        map.remove("Maria");
+        bucket.add(new Entry<>(key, value)); // Add new entry if key does not exist
+        size++;
+    }
 
-        // Iterate through the HashMap
-        for (HashMap.Entry<String, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+    // GET method: Retrieve value by key
+    public V get(K key) {
+        int index = getBucketIndex(key);
+        LinkedList<Entry<K, V>> bucket = buckets[index];
+
+        for (Entry<K, V> entry : bucket) {
+            if (entry.key.equals(key)) {
+                return entry.value;
+            }
+        }
+        return null; // Key not found
+    }
+
+    // REMOVE method: Delete key-value pair
+    public void remove(K key) {
+        int index = getBucketIndex(key);
+        LinkedList<Entry<K, V>> bucket = buckets[index];
+
+        Entry<K, V> toRemove = null;
+        for (Entry<K, V> entry : bucket) {
+            if (entry.key.equals(key)) {
+                toRemove = entry;
+                break;
+            }
         }
 
-        // Get the size of the HashMap
-        System.out.println("Total number of entries: " + map.size());
+        if (toRemove != null) {
+            bucket.remove(toRemove);
+            size--;
+        }
+    }
+
+    // CONTAINS KEY method: Check if key exists
+    public boolean containsKey(K key) {
+        int index = getBucketIndex(key);
+        LinkedList<Entry<K, V>> bucket = buckets[index];
+
+        for (Entry<K, V> entry : bucket) {
+            if (entry.key.equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // SIZE method: Return the number of key-value pairs
+    public int size() {
+        return size;
+    }
+
+    // DISPLAY method: Print the HashMap
+    public void display() {
+        System.out.println("Custom HashMap Contents:");
+        for (int i = 0; i < INITIAL_CAPACITY; i++) {
+            if (!buckets[i].isEmpty()) {
+                System.out.print("Bucket " + i + ": ");
+                for (Entry<K, V> entry : buckets[i]) {
+                    System.out.print("[" + entry.key + " -> " + entry.value + "] ");
+                }
+                System.out.println();
+            }
+        }
     }
 }
